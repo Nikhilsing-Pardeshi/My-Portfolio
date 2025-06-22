@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nikhilsing Pardeshi - Fullstack Developer Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+  :root {
+    --color-bg: #f9fafb;
+    --color-text: #202124;
+    --color-accent-primary: #1a73e8;
+    --color-accent-secondary: #185abc;
+    --color-accent-shadow: rgba(26, 115, 232, 0.24);
+    --color-bg-alt: #ffffff;
+    --color-muted-text: #5f6368;
+    --color-muted-alt: #80868b;
+    --font-family: 'Inter', sans-serif;
+    --header-height: 64px;
+    --spacing-base: 24px;
+    --transition-speed: 0.3s;
+    --border-radius: 8px;
+    --input-bg: #fff;
+    --input-border: #dadce0;
+    --input-focus-border: var(--color-accent-primary);
+  }
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    font-family: var(--font-family);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a {
+    color: var(--color-accent-primary);
+    text-decoration: none;
+    outline-offset: 3px;
+  }
+  a:hover,
+  a:focus {
+    text-decoration: underline;
+  }
+  a:focus-visible {
+    outline: 3px solid var(--color-accent-primary);
+    outline-offset: 3px;
+  }
+  header {
+    background: var(--color-bg-alt);
+    border-bottom: 1px solid #dadce0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 1px 3px var(--color-accent-shadow);
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-base);
+    width: 100%;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--header-height);
+  }
+  .logo {
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--color-accent-primary);
+    cursor: default;
+    user-select: none;
+  }
+  ul.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+  }
+  ul.nav-links li a {
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 6px 0;
+    position: relative;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  ul.nav-links li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: var(--color-accent-primary);
+    transition: width var(--transition-speed) ease;
+    border-radius: 1px;
+  }
+  ul.nav-links li a:hover::after,
+  ul.nav-links li a:focus::after {
+    width: 100%;
+  }
+  main {
+    flex-grow: 1;
+    padding: 80px var(--spacing-base) 100px;
+    max-width: 960px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  section {
+    margin-bottom: 64px;
+  }
+  h1, h2, h3 {
+    color: var(--color-text);
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-size: clamp(1.75rem, 4vw, 2.2rem);
+    font-weight: 700;
+    margin-bottom: 32px;
+    text-align: center;
+    color: var(--color-accent-primary);
+  }
+  h3 {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  p {
+    font-size: 1rem;
+    color: var(--color-muted-text);
+    margin-bottom: 16px;
+  }
+  .hero {
+    text-align: center;
+    margin-bottom: 64px;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .profile-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 15px var(--color-accent-shadow);
+    border: 4px solid var(--color-accent-primary);
+  }
+  .hero .title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-muted-alt);
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .contact-links a {
+    background: var(--color-bg-alt);
+    border-radius: var(--border-radius);
+    padding: 14px 28px;
+    font-weight: 600;
+    color: var(--color-accent-primary);
+    box-shadow: 0 0 10px var(--color-accent-shadow);
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    min-width: 180px;
+    text-align: center;
+    display: inline-block;
+    user-select: text;
+    border: 1px solid transparent;
+  }
+  .contact-links a:hover,
+  .contact-links a:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px var(--color-accent-shadow);
+    border-color: var(--color-accent-primary);
+    outline: none;
+  }
+  .section-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .experience-item,
+  .education-item {
+    background: var(--color-bg-alt);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+    padding: 24px 28px;
+    transition: box-shadow 0.3s ease;
+  }
+  .experience-item:hover,
+  .education-item:hover {
+    box-shadow: 0 6px 18px rgb(26 115 232 / 0.2);
+  }
+  .date-range {
+    font-size: 0.9rem;
+    color: var(--color-muted-alt);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+  .skill-tag {
+    background: var(--color-bg-alt);
+    color: var(--color-accent-primary);
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-weight: 600;
+    box-shadow: 0 0 10px var(--color-accent-shadow);
+    cursor: default;
+    user-select: none;
+    min-width: 90px;
+    text-align: center;
+    font-size: 1rem;
+    transition: box-shadow 0.3s ease;
+  }
+  .skill-tag:hover,
+  .skill-tag:focus {
+    box-shadow: 0 0 20px var(--color-accent-primary);
+    outline: none;
+  }
+  footer {
+    background: var(--color-bg-alt);
+    border-top: 1px solid #dadce0;
+    padding: 24px 0;
+    color: var(--color-muted-text);
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  /* Contact form styles */
+  form.contact-form {
+    background: var(--color-bg-alt);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+    padding: 32px 28px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .form-group {
+    position: relative;
+    margin-bottom: 24px;
+  }
+  label {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    color: var(--color-muted-text);
+    font-size: 1rem;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: all 0.2s ease;
+    background: var(--color-bg-alt);
+    padding: 0 4px;
+    border-radius: 4px;
+  }
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    padding: 16px 16px 16px 16px;
+    border-radius: var(--border-radius);
+    border: 1.5px solid var(--input-border);
+    font-size: 1rem;
+    font-family: var(--font-family);
+    color: var(--color-text);
+    background: var(--input-bg);
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    resize: vertical;
+    min-height: 44px;
+  }
+  textarea {
+    min-height: 120px;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--input-focus-border);
+    box-shadow: 0 0 8px var(--color-accent-primary);
+  }
+  input[type="text"]:focus + label,
+  input[type="text"]:not(:placeholder-shown) + label,
+  input[type="email"]:focus + label,
+  input[type="email"]:not(:placeholder-shown) + label,
+  textarea:focus + label,
+  textarea:not(:placeholder-shown) + label {
+    top: -8px;
+    left: 12px;
+    color: var(--color-accent-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  button.submit-btn {
+    background: var(--color-accent-primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 14px 24px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 6px 12px var(--color-accent-shadow);
+    width: 100%;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  button.submit-btn:hover,
+  button.submit-btn:focus-visible {
+    background: var(--color-accent-secondary);
+    box-shadow: 0 10px 20px var(--color-accent-shadow);
+    outline: none;
+  }
+  /* Responsive: Mobile first (default) */
+  /* Hide desktop nav, show mobile menu button */
+  ul.nav-links:not(.mobile) {
+    display: none;
+  }
+  button.mobile-menu-button {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--color-accent-primary);
+    font-size: 2.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+  button.mobile-menu-button:focus-visible {
+    outline: 3px solid var(--color-accent-primary);
+    outline-offset: 3px;
+  }
+  /* Mobile nav menu */
+  ul.nav-links.mobile {
+    position: fixed;
+    top: var(--header-height);
+    right: 0;
+    background: var(--color-bg-alt);
+    height: calc(100vh - var(--header-height));
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 24px;
+    gap: 24px;
+    box-shadow: -5px 0 25px var(--color-accent-shadow);
+    transform: translateX(100%);
+    transition: transform var(--transition-speed) ease;
+    z-index: 1100;
+  }
+  ul.nav-links.mobile.open {
+    transform: translateX(0);
+  }
+  ul.nav-links.mobile li {
+    list-style: none;
+  }
+  ul.nav-links.mobile li a {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-accent-primary);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  ul.nav-links.mobile li a:focus-visible {
+    outline: 3px solid var(--color-accent-primary);
+    outline-offset: 3px;
+  }
+  /* Tablet breakpoint */
+  @media (min-width: 641px) {
+    /* Show desktop nav & hide mobile menu button and mobile nav */
+    ul.nav-links:not(.mobile) {
+      display: flex;
+    }
+    button.mobile-menu-button {
+      display: none;
+    }
+    ul.nav-links.mobile {
+      display: none !important;
+    }
+    main {
+      padding: 80px var(--spacing-base) 100px;
+      max-width: 960px;
+    }
+    .hero {
+      flex-direction: row;
+      align-items: center;
+      text-align: left;
+      gap: 48px;
+    }
+  }
+  /* Desktop breakpoint */
+  @media (min-width: 1025px) {
+    main {
+      padding: 100px var(--spacing-base) 120px;
+      max-width: 960px;
+    }
+  }
+  /* Ultra wide screens */
+  @media (min-width: 1920px) {
+    main {
+      max-width: 1200px;
+      padding: 120px 48px 140px;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <nav aria-label="Primary navigation">
+      <div class="logo" aria-current="page">Nikhilsing Pardeshi</div>
+      <button 
+        class="mobile-menu-button" 
+        aria-label="Toggle navigation menu" 
+        aria-expanded="false" 
+        aria-controls="mobile-menu">&#9776;
+      </button>
+      <ul class="nav-links" role="menu">
+        <li role="none"><a href="#about" role="menuitem" tabindex="0">About</a></li>
+        <li role="none"><a href="#experience" role="menuitem" tabindex="0">Experience</a></li>
+        <li role="none"><a href="#education" role="menuitem" tabindex="0">Education</a></li>
+        <li role="none"><a href="#skills" role="menuitem" tabindex="0">Skills</a></li>
+        <li role="none"><a href="#contact" role="menuitem" tabindex="0">Contact</a></li>
+        <li role="none"><a href="PardeshiNIkhilsing.pdf" role="menuitem" tabindex="0">Resume</a></li>
+
+    </ul>
+      <ul class="nav-links mobile" id="mobile-menu" role="menu" aria-label="Mobile navigation menu">
+        <li role="none"><a href="#about" role="menuitem" tabindex="-1">About</a></li>
+        <li role="none"><a href="#experience" role="menuitem" tabindex="-1">Experience</a></li>
+        <li role="none"><a href="#education" role="menuitem" tabindex="-1">Education</a></li>
+        <li role="none"><a href="#skills" role="menuitem" tabindex="-1">Skills</a></li>
+        <li role="none"><a href="#contact" role="menuitem" tabindex="-1">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="hero" id="about" tabindex="-1" aria-labelledby="about-title">
+    <img class="profile-photo" src="Pfp.jpg" alt="Professional headshot of Nikhilsing Pardeshi wearing formal attire with a soft background, friendly and confident expression" onerror="this.style.display='none'"/>
+    <div>
+      <h1 id="about-title">Nikhilsing Pardeshi</h1>
+      <p class="title">Fullstack Developer</p>
+      <p>Crafting seamless software and user experiences with expertise in front and backend technologies to tailor solutions for clients' needs.</p>
+      <div class="contact-links">
+        <a href="tel:+919096361290" aria-label="Call Nikhilsing at +91 9096361290">+91 90963 61290</a>
+        <a href="mailto:pardeshinkki8@gmail.com" aria-label="Email Nikhilsing at pardeshinkki8@gmail.com">pardeshin662@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" tabindex="-1" aria-labelledby="experience-title">
+    <h2 id="experience-title">Work Experience</h2>
+    <div class="section-container">
+      <article class="experience-item" aria-describedby="desc1">
+        <h3>Full-stack Developer Intern</h3>
+        <div class="date-range">August 2024 (1 Month)</div>
+        <p id="desc1">Worked at Internship Studio on StockSync software for medicine suppliers company. Developed and maintained frontend projects along with designing and delivering a full-stack web application for trading and investment management.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="education" tabindex="-1" aria-labelledby="education-title">
+    <h2 id="education-title">Education</h2>
+    <div class="section-container">
+      <article class="education-item" aria-describedby="edu-desc1">
+        <h3>Bachelor's of Business Administration and Computer Application</h3>
+        <div class="date-range">2023 - 2025 | Savitribai Phule Pune University, Pune, India</div>
+        <p id="edu-desc1"> A Bachelor's degree integrating business administration with computer applications to build robust software and management skills.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills" tabindex="-1" aria-labelledby="skills-title">
+    <h2 id="skills-title">Skills</h2>
+    <div class="skills-list" aria-label="Software development skills">
+      <div class="skill-tag" tabindex="0">Core Java & Advance Java</div>
+      <div class="skill-tag" tabindex="0">HTML</div>
+      <div class="skill-tag" tabindex="0">CSS</div>
+      <div class="skill-tag" tabindex="0">JavaScript</div>
+      <div class="skill-tag" tabindex="0">Bootstrap</div>
+      <div class="skill-tag" tabindex="0">React</div>
+      <div class="skill-tag" tabindex="0">SQL</div>
+      <div class="skill-tag" tabindex="0">GitHub</div>
+
+    </div>
+  </section>
+
+  <section id="contact" tabindex="-1" aria-labelledby="contact-title">
+    <h2 id="contact-title">Get In Touch</h2>
+    <p>If you'd like to work together or want to know more, feel free to reach out through the contact info above or the contact form below.</p>
+    <div style="text-align:center; margin-bottom:32px;">
+      <a href="https://www.linkedin.com/in/nikhilsing-pardeshi-048303293/" target="_blank" rel="noopener" style="color:var(--color-accent-primary); font-weight:600; margin:0 16px;">LinkedIn</a>
+      <a href="https://github.com/Nikhilsing-Pardeshi" target="_blank" rel="noopener" style="color:var(--color-accent-primary); font-weight:600; margin:0 16px;">GitHub</a>
+    </div>
+    <form class="contact-form" id="contact-form" novalidate>
+      <div class="form-group">
+        <input type="text" id="name" name="name" placeholder=" " required aria-required="true" autocomplete="name" />
+        <label for="name">Name</label>
+        <span class="error-message" aria-live="polite"></span>
+      </div>
+      <div class="form-group">
+        <input type="email" id="email" name="email" placeholder=" " required aria-required="true" autocomplete="email" />
+        <label for="email">Email</label>
+        <span class="error-message" aria-live="polite"></span>
+      </div>
+      <div class="form-group">
+        <input type="text" id="subject" name="subject" placeholder=" " required aria-required="true" />
+        <label for="subject">Subject</label>
+        <span class="error-message" aria-live="polite"></span>
+      </div>
+      <div class="form-group">
+        <textarea id="message" name="message" placeholder=" " required aria-required="true" minlength="10"></textarea>
+        <label for="message">Message</label>
+        <span class="error-message" aria-live="polite"></span>
+      </div>
+      <button type="submit" class="submit-btn">Send Message</button>
+      <div aria-live="polite" id="form-feedback" style="margin-top:12px; color:var(--color-accent-primary); font-weight:600;"></div>
+    </form>
+  </section>
+</main>
+<footer>
+  &copy; 2025 Nikhilsing Pardeshi. All rights reserved.
+</footer>
+<script>
+  const menuButton = document.querySelector('.mobile-menu-button');
+  const mobileMenu = document.querySelector('ul.nav-links.mobile');
+  const body = document.body;
+
+  function lockBodyScroll(lock) {
+    if(lock) {
+      body.style.overflow = 'hidden';
+    } else {
+      body.style.overflow = '';
+    }
+  }
+
+  menuButton.addEventListener('click', () => {
+    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+    if (!isExpanded) {
+      mobileMenu.classList.add('open');
+      menuButton.setAttribute('aria-expanded', 'true');
+      mobileMenu.querySelectorAll('a').forEach(link => link.setAttribute('tabindex', "0"));
+      mobileMenu.querySelector('a').focus();
+      lockBodyScroll(true);
+    } else {
+      mobileMenu.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      mobileMenu.querySelectorAll('a').forEach(link => link.setAttribute('tabindex', "-1"));
+      menuButton.focus();
+      lockBodyScroll(false);
+    }
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if(mobileMenu.classList.contains('open')){
+        mobileMenu.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        mobileMenu.querySelectorAll('a').forEach(l => l.setAttribute('tabindex', '-1'));
+        menuButton.focus();
+        lockBodyScroll(false);
+      }
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && mobileMenu.classList.contains('open')){
+      mobileMenu.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      mobileMenu.querySelectorAll('a').forEach(l => l.setAttribute('tabindex', '-1'));
+      menuButton.focus();
+      lockBodyScroll(false);
+    }
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(link => link.setAttribute('tabindex', '-1'));
+
+  // Contact form JS Validation
+  const form = document.getElementById('contact-form');
+  const formFeedback = document.getElementById('form-feedback');
+
+  function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    formFeedback.textContent = '';
+    let valid = true;
+
+    form.querySelectorAll('.error-message').forEach(elem => {
+      elem.textContent = '';
+    });
+
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const subject = form.subject.value.trim();
+    const message = form.message.value.trim();
+
+    if (name === '') {
+      valid = false;
+      form.name.nextElementSibling.nextElementSibling.textContent = 'Name is required.';
+    }
+    if (email === '') {
+      valid = false;
+      form.email.nextElementSibling.nextElementSibling.textContent = 'Email is required.';
+    } else if (!validateEmail(email)) {
+      valid = false;
+      form.email.nextElementSibling.nextElementSibling.textContent = 'Please enter a valid email.';
+    }
+    if (subject === '') {
+      valid = false;
+      form.subject.nextElementSibling.nextElementSibling.textContent = 'Subject is required.';
+    }
+    if (message.length < 10) {
+      valid = false;
+      form.message.nextElementSibling.nextElementSibling.textContent = 'Message must be at least 10 characters.';
+    }
+
+    if (valid) {
+      formFeedback.textContent = 'Thank you for reaching out! I will get back to you soon.';
+      form.reset();
+      form.querySelectorAll('input, textarea').forEach(input => {
+        input.dispatchEvent(new Event('blur'));
+      });
+    } else {
+      formFeedback.textContent = '';
+    }
+  });
+
+  document.querySelectorAll('input, textarea').forEach((input) => {
+    input.addEventListener('blur', () => {
+      if(input.value.trim().length > 0) {
+        input.classList.add('filled');
+      } else {
+        input.classList.remove('filled');
+      }
+    });
+    setTimeout(() => input.dispatchEvent(new Event('blur')), 10);
+  });
+</script>
+</body>
+</html>
+
